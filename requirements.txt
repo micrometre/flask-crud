@@ -2,3 +2,6 @@ flask
 Flask-SQLAlchemy
 pymysql
 pandas
+markdown
+Flask-MDE
+Flask-WTF

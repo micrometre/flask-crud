@@ -2,9 +2,6 @@ from flask import Flask, flash, json, jsonify, render_template, request, redirec
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import text
 import pandas as pd
-import markdown
-import markdown.extensions.fenced_code
-
 app = Flask(__name__)
 
 # /// = relative path, //// = absolute path
@@ -28,7 +25,7 @@ with app.app_context():
 
 
 
-@app.route('/add', methods=['GET', 'POST'])
+@app.route('/test', methods=['GET', 'POST'])
 def add_contact_message():
     if request.method == 'POST':
             title = request.form['title']
@@ -64,8 +61,13 @@ def add_contact_message():
     
 @app.route("/db")
 def get_contact_message():
-    todo_list = Todo.query.all()
-    return render_template("db.html", todo_list=todo_list)
+    with db.engine.connect() as conn:
+        b = conn.execute(text("SELECT * FROM todo")).fetchall()
+        df = pd.DataFrame(b)
+        e = df.to_dict(orient='index')
+        print((e))
+        todo_list = Todo.query.all()
+        return render_template("db.html", todo_list=todo_list)
 
 
 
@@ -75,6 +77,14 @@ def home():
     todo_list = Todo.query.all()
     return render_template("base.html", todo_list=todo_list)
 
+
+@app.route("/add", methods=["POST"])
+def add():
+    title = request.form.get("title")
+    new_todo = Todo(title=title, complete=False)
+    db.session.add(new_todo)
+    db.session.commit()
+    return redirect(url_for("home"))   
 
 
 

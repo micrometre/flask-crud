@@ -19,26 +19,30 @@
                 <label>Todo Title</label>
                 <input type="text" name="title" placeholder="Enter Todo..."><br>
             </div>
+            <div class="field">
+                <input type="text" id="first-name" placeholder="First Name" name="first-name"autoComplete="first-name" required />
+            </div>
+            <div>
+                <input type="text" id="last-name" placeholder="Last Name" name="last-name" autoComplete="last-name" required />
+            </div>
+            <div class="field">
+                <input type="email" id="email" placeholder="Email"name="email" autoComplete="email" required />
+            </div>
+            <div class="field">
+                <input type="phone" id="phone" placeholder="Phone Number" name="phone" autoComplete="phone" required />
+            </div>                
+            <div class="field">
+                <input type="company" id="company" placeholder="Company" name="company" autoComplete="company" required />
+            </div>
+            <div class="field">
+            <textarea id="message" placeholder="Message"  name="message" rows="5" cols="33"></textarea>
+            </div>
             <button class="ui blue button" type="submit">Add</button>
         </form>
 
         <hr>
 
-        {% for todo in todo_list %}
-        <div class="ui segment">
-            <p class="ui big header">{{todo.id }} | {{ todo.title }}</p>
 
-            {% if todo.complete == False %}
-            <span class="ui gray label">Not Complete</span>
-            {% else %}
-            <span class="ui green label">Completed</span>
-            {% endif %}
-
-            <a class="ui blue button" href="/update/{{ todo.id }}">Update</a>
-            <a class="ui red button" href="/delete/{{ todo.id }}">Delete</a>
-        </div>
-        {% endfor %}
-    </div>
 </body>
 
 </html>
