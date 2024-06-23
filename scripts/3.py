@@ -1,4 +1,4 @@
-from flask import Flask, flash, json, jsonify, render_template, request, redirect, url_for
+from flask import Flask, flash, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import text
 import pandas as pd
@@ -83,25 +83,14 @@ def add_contact_message():
     </div>
 </form>
     '''
+
+    
+@app.route("/db")
 def get_contact_message():
     with db.engine.connect() as conn:
         b = conn.execute(text("SELECT * FROM todo")).fetchall()
-        for row in b:
-            #print(f"{type(row)} of type {type(row[0])}")
-            print(f"{(row)}")
-        return(f"{type(row)}")
-    
-@app.route("/db")
-def message():
-    with db.engine.connect() as conn:
-        b = conn.execute(text("SELECT * FROM todo")).fetchall()
-        c = f"{(b)}"
-        df = pd.DataFrame(b)
-        d = df.to_json(orient='index')
-        e = df.to_dict(orient='index')
-        print((e))
-        return(e)
-        #return(f"{(b)}")
+        print(type(b))
+        return("22") 
 
 
 
