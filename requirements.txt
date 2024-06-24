@@ -5,3 +5,8 @@ pandas
 markdown
 Flask-MDE
 Flask-WTF
+Flask-FlatPages
+Frozen-Flask
+Markdown
+Pygments
+PyYAML
