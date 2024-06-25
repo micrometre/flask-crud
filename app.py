@@ -72,7 +72,7 @@ def add_contact_message():
                 db.session.add(new_todo)
                 db.session.commit()
                 print(new_todo)
-            return redirect(url_for('home' ))
+            return redirect(url_for('posts' ))
 
 
 @app.route("/update/<int:todo_id>")
