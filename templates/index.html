@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% include 'head-imports.html' %}
+
+</head>
+
+<body>
+    <div style="margin-top: 50px;" class="ui container">
+        <h1 class="ui center aligned header">test</h1>
+
+    </div>
+    <div style="margin-top: 50px;" class="ui container">
+        <h1 class="ui center aligned header">test</h1>
+        {% include 'posts.html' %}
+        {% for post in posts %}
+        <a href="{{ url_for('post', name=post.path.replace('posts/', '')) }}">
+            {{ post.title }}
+        </a>
+        <small>{{ post.date }}</small>
+    {% endfor %}
+    </div>
+
+</body>
+
+</html>
