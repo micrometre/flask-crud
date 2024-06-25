@@ -7,12 +7,15 @@ DEBUG = True
 FLATPAGES_AUTO_RELOAD = DEBUG
 FLATPAGES_EXTENSION = '.md'
 FLATPAGES_ROOT = 'content'
-POST_DIR = 'blog'
+POST_DIR = 'posts'
 
 app = Flask(__name__)
 flatpages = FlatPages(app)
 freezer = Freezer(app)
 app.config.from_object(__name__)
+
+
+
 @app.route("/posts/")
 def posts():
     posts = [p for p in flatpages if p.path.startswith(POST_DIR)]
