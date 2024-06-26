@@ -80,7 +80,7 @@ def update(todo_id):
     todo = Todo.query.filter_by(id=todo_id).first()
     todo.complete = not todo.complete
     db.session.commit()
-    return redirect(url_for("get_contact_message"))
+    return redirect(url_for("posts"))
 
 
 @app.route("/delete/<int:todo_id>")
@@ -88,7 +88,7 @@ def delete(todo_id):
     todo = Todo.query.filter_by(id=todo_id).first()
     db.session.delete(todo)
     db.session.commit()
-    return redirect(url_for("get_contact_message"))
+    return redirect(url_for("posts"))
 
 
 
@@ -97,34 +97,12 @@ def get_contact_message():
     todo_list = Todo.query.all()
     return render_template("db.html", todo_list=todo_list)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @app.route("/posts/")
 def posts():
     posts = [p for p in flatpages if p.path.startswith(POST_DIR)]
     posts.sort(key=lambda item:item['date'], reverse=False)
-    return render_template('posts.html', posts=posts)
+    todo_list = Todo.query.all()
+    return render_template('posts.html', posts=posts, todo_list=todo_list )
 
 @app.route('/posts/<name>/')
 def post(name):

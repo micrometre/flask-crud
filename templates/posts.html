@@ -8,19 +8,74 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        /* Create two equal columns that floats next to each other */
+        .column {
+            float: left;
+            width: 50%;
+            padding: 10px;
+            height: 300px;
+            /* Should be removed. Only for demonstration */
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+        @media screen and (max-width: 600px) {
+            .column {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <div style="margin-top: 50px;" class="ui container">
-        {% for post in posts %}
-        <div class="field">
-            <a href="{{ url_for('post', name=post.path.replace('posts/', '')) }}">
-                {{ post.title }}
-            </a>
-            <small>{{ post.date }}</small>
-        </div>
-        {% endfor %}
+
+    <hr>
+
     </div>
+    <div class="row">
+        <div class="column" style="background-color:#aaa;">
+            <h2>Contact messages</h2>
+            <p>Some text..</p>
+
+            <div class="ui ordered list">
+                {% for post in posts %}
+                <a class="item" href="{{ url_for('post', name=post.path.replace('posts/', '')) }}">
+                    {{ post.title }}
+                </a>
+
+                <small>{{ post.date }}</small>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="column" style="background-color:#bbb;">
+            <h2>Tasks</h2>
+            {% for todo in todo_list %}
+            <div>
+                <p class="ui big header">{{todo.id }} | {{ todo.email }}</p>
+                {% if todo.complete == False %}
+                <span class="ui gray label">Not Complete</span>
+                {% else %}
+                <span class="ui green label">Completed</span>
+                {% endif %}
+
+                <a class="ui blue button" href="/update/{{ todo.id }}">Update</a>
+                <a class="ui red button" href="/delete/{{ todo.id }}">Delete</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
 
 </body>
 
